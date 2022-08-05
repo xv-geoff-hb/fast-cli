@@ -4,14 +4,15 @@ import "os"
 import "fmt"
 import "io"
 import "net/http"
+import "net/url"
 import "strconv"
 import "time"
 
 import "github.com/spf13/cobra"
 import "github.com/gesquive/cli"
-import "github.com/gesquive/fast-cli/fast"
-import "github.com/gesquive/fast-cli/format"
-import "github.com/gesquive/fast-cli/meters"
+import "github.com/xv-geoff-hb/fast-cli/fast"
+import "github.com/xv-geoff-hb/fast-cli/format"
+import "github.com/xv-geoff-hb/fast-cli/meters"
 
 var version = "v0.2.10"
 var dirty = ""
@@ -22,6 +23,7 @@ var logDebug bool
 var notHTTPS bool
 var simpleProgress bool
 var showVersion bool
+var proxy string
 
 //RootCmd is the only command
 var RootCmd = &cobra.Command{
@@ -42,7 +44,7 @@ func main() {
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute(version string) {
 	displayVersion = version
-	RootCmd.SetHelpTemplate(fmt.Sprintf("%s\nVersion:\n  github.com/gesquive/%s\n",
+	RootCmd.SetHelpTemplate(fmt.Sprintf("%s\nVersion:\n  github.com/xv-geoff-hb/%s\n",
 		RootCmd.HelpTemplate(), displayVersion))
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -53,6 +55,7 @@ func Execute(version string) {
 func init() {
 	cobra.OnInitialize(initLog)
 
+	RootCmd.PersistentFlags().StringVarP(&proxy, "proxy", "p", "", "Proxy URL to use")
 	RootCmd.PersistentFlags().BoolVarP(&notHTTPS, "no-https", "n", false, "Do not use HTTPS when connecting")
 	RootCmd.PersistentFlags().BoolVarP(&simpleProgress, "simple", "s", false, "Only display the result, no dynamic progress bar")
 	RootCmd.PersistentFlags().BoolVar(&showVersion, "version", false, "Display the version number and exit")
@@ -97,6 +100,11 @@ func run(cmd *cobra.Command, args []string) {
 
 func calculateBandwidth(urls []string) (err error) {
 	client := &http.Client{}
+	if proxy != "" {
+        	proxyUrl, _ := url.Parse(proxy)
+		client = &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
+	}
+
 	count := uint64(len(urls))
 
 	primaryBandwidthReader := meters.BandwidthMeter{}

@@ -13,7 +13,7 @@ VERSION := $(shell git describe --always --tags)
 BIN_NAME=fast-cli
 
 # Project owner for bintray
-OWNER=gesquive
+OWNER=xv-geoff-hb
 
 # Project name for bintray
 PROJECT_NAME=fast-cli
