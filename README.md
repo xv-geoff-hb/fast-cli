@@ -1,7 +1,7 @@
 # fast-cli
-[![Travis CI](https://img.shields.io/travis/gesquive/fast-cli/master.svg?style=flat-square)](https://travis-ci.org/gesquive/fast-cli)
-[![Software License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square)](https://github.com/gesquive/fast-cli/blob/master/LICENSE)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/gesquive/fast-cli)
+[![Travis CI](https://img.shields.io/travis/xv-geoff-hb/fast-cli/master.svg?style=flat-square)](https://travis-ci.org/xv-geoff-hb/fast-cli)
+[![Software License](https://img.shields.io/badge/License-MIT-orange.svg?style=flat-square)](https://github.com/xv-geoff-hb/fast-cli/blob/master/LICENSE)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/xv-geoff-hb/fast-cli)
 
 fast-cli estimates your current internet download speed by performing a series of downloads from Netflix's fast.com servers.
 
@@ -9,13 +9,11 @@ fast-cli estimates your current internet download speed by performing a series o
 ## Installing
 
 ### Compile
-This project requires go 1.6+ to compile. Just run `go get -u github.com/gesquive/fast-cli` and the executable should be built for you automatically in your `$GOPATH`.
+This project requires go 1.6+ to compile. Just run `go get -u github.com/xv-geoff-hb/fast-cli` and the executable should be built for you automatically in your `$GOPATH`.
 
 Optionally you can run `make install` to build and copy the executable to `/usr/local/bin/` with correct permissions.
 
 ### Download
-Alternately, you can download the latest release for your platform from [github](https://github.com/gesquive/fast-cli/releases).
-
 Once you have an executable, make sure to copy it somewhere on your path like `/usr/local/bin` or `C:/Program Files/`.
 If on a \*nix/mac system, make sure to run `chmod +x /path/to/fast-cli`.
 
@@ -32,6 +30,7 @@ Flags:
   -n, --no-https   Do not use HTTPS when connecting
   -s, --simple     Only display the result, no dynamic progress bar
       --version    Display the version number and exit
+  -p, --proxy      Execute test through an HTTP/HTTPS proxy
 ```
 Optionally, a hidden debug flag is available in case you need additional output.
 ```console
@@ -41,7 +40,7 @@ Hidden Flags:
 
 ## Documentation
 
-This documentation can be found at github.com/gesquive/fast-cli
+This documentation can be found at github.com/xv-geoff-hb/fast-cli
 
 ## License
 
